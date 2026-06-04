@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KPI Bonus Detail - Andi Pratama</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b8c4ff",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#ffa583",
+                        "surface-variant": "#e3e1eb",
+                        "on-primary-fixed": "#001453",
+                        "on-primary-fixed-variant": "#173bab",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-container-highest": "#e3e1eb",
+                        "on-secondary-container": "#616363",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b8c4ff",
+                        "tertiary": "#611e00",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fbf8ff",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "surface-container-low": "#f4f2fc",
+                        "surface-bright": "#fbf8ff",
+                        "on-primary-container": "#a8b8ff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#3755c3",
+                        "inverse-surface": "#2f3037",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary": "#00288e",
+                        "outline": "#757684",
+                        "inverse-on-surface": "#f1f0fa",
+                        "primary-fixed": "#dde1ff",
+                        "outline-variant": "#c4c5d5",
+                        "surface-container": "#eeedf7",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1a1b22",
+                        "secondary-container": "#dfe0e0",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "on-tertiary-fixed-variant": "#802a00",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#872d00",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#444653",
+                        "tertiary-fixed": "#ffdbce",
+                        "surface-dim": "#dad9e3",
+                        "primary-container": "#1e40af",
+                        "surface-container-high": "#e8e7f1",
+                        "secondary": "#5d5f5f",
+                        "surface": "#fbf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack_md": "16px",
+                        "sidebar_expanded": "260px",
+                        "gutter": "24px",
+                        "sidebar_collapsed": "72px",
+                        "stack_sm": "8px",
+                        "stack_lg": "24px",
+                        "header_height": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "code-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "code-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .kpi-score-badge {
+            background: linear-gradient(135deg, #00288e 0%, #1e40af 100%);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .sidebar-shell { display: none !important; }
+            .main-content { margin-left: 0 !important; width: 100% !important; }
+            .card-shadow { border: 1px solid #e5e7eb !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto hidden md:flex w-sidebar_expanded flex-col border-r border-outline-variant bg-surface z-40 sidebar-shell">
+<div class="p-gutter flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AutoERP</h1>
+<p class="text-xs text-on-surface-variant">Management Suite</p>
+</div>
+</div>
+<nav class="flex-1 mt-6">
+<div class="px-4 mb-2 text-label-sm font-label-sm text-outline uppercase tracking-widest">Main Menu</div>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-body-md text-body-md">Employees</span>
+</a>
+<div class="px-4 mt-6 mb-2 text-label-sm font-label-sm text-outline uppercase tracking-widest">Performance</div>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">KPI Periods</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-body-md text-body-md">KPI Assessment</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-primary border-l-4 border-primary bg-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-body-md text-body-md">Bonus Recap</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-on-surface-variant hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 p-2">
+<img alt="Admin User" class="w-10 h-10 rounded-full" data-alt="A professional headshot of a senior corporate executive in a crisp white shirt, with a neutral blurred office background. The lighting is bright and clean, following a high-end corporate aesthetic with a slight blue tint in the shadows. The mood is professional, trustworthy, and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6vEWKnYd3ToTSDWNzDIW1Qz-B_Dq9kPwNErcTVm0qcBhDIlaL1b-EfbR0N7YU0bmZoQG8sl90nXYAye1DGvfpZTMenY7dqYpLBgjiQy5fO4IwevEnG5srseC6gli0pEhzLfdg-CHIQ6qWOF-Oyaepy9tUA6pZo9aJXeiAN1VUuwAnVaMpcIIFKsLLjOfVcpBItODcmRyzwoQHSLlMBTh5K87ycen2nKzxf16xn7hLUe9sXtjpSJjHjbakxM6c2ibGK93y_wVKSKk"/>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface font-bold">Admin Portal</p>
+<p class="text-[10px] text-on-surface-variant">System Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 left-0 md:left-sidebar_expanded h-header_height bg-surface border-b border-outline-variant z-30 flex justify-between items-center px-gutter shadow-sm no-print">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Bonus Detail Report</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-lg hover:opacity-90 transition-all font-label-sm text-label-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                PRINT REPORT
+            </button>
+<div class="w-[1px] h-6 bg-outline-variant mx-2"></div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded-full">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded-full">settings</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-[calc(64px+24px)] pb-12 px-gutter md:ml-sidebar_expanded min-h-screen main-content">
+<!-- Detail Container -->
+<div class="max-w-5xl mx-auto space-y-gutter">
+<!-- Header Section (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Profile Card -->
+<div class="lg:col-span-2 bg-white rounded-xl p-8 border border-outline-variant shadow-sm flex flex-col md:flex-row gap-8 items-center md:items-start card-shadow">
+<div class="relative">
+<img alt="Andi Pratama" class="w-32 h-32 rounded-xl object-cover ring-4 ring-primary-fixed" data-alt="A portrait of a confident male salesman in his early 30s wearing a modern tailored blue blazer over a light shirt. He is smiling warmly in a bright, sunlit showroom environment with cars subtly visible in the background. The aesthetic is clean, professional, and trustworthy, with high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBghaSA5nbiu-1CCMXhotPkHrWPNLPG2vKD_ugJab2UlJWK83AC2lmmSLUaBDfSfyhxgivgniGeebbSgqI_RzmsZKEkuJW2smCKSKK7zH7MIwLccypmGuaPybj1TS5NGpO2HtktlCQmN7N6haqxp5qOV1EYYtBNxUzD5skqWZNBc1cVvvLp8DcdTGnpSlHls3imitPIILBYoQywzrmodopdmK4aZNr-0HgTk8nilNpGLUKkjn89_9jrGsg9wSo3paIQBEGk2YXCDKY"/>
+<div class="absolute -bottom-2 -right-2 bg-green-500 text-white p-1 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Andi Pratama</h3>
+<p class="text-primary font-bold tracking-widest text-label-sm">SLM001 • SENIOR SALESMAN</p>
+</div>
+<div class="bg-surface-container px-4 py-2 rounded-lg border border-outline-variant">
+<p class="text-[10px] text-outline uppercase font-bold">Assessment Period</p>
+<p class="font-body-md text-body-md text-on-surface">Q3 (Jul - Sep) 2023</p>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="p-3 bg-background rounded border border-outline-variant/30">
+<p class="text-[10px] text-outline uppercase">Branch</p>
+<p class="font-body-md text-body-md font-bold">Sudirman Central</p>
+</div>
+<div class="p-3 bg-background rounded border border-outline-variant/30">
+<p class="text-[10px] text-outline uppercase">Employment</p>
+<p class="font-body-md text-body-md font-bold">Permanent (5yr)</p>
+</div>
+<div class="p-3 bg-background rounded border border-outline-variant/30 hidden md:block">
+<p class="text-[10px] text-outline uppercase">Bonus Eligibility</p>
+<p class="font-body-md text-body-md font-bold text-green-600">Full Benefit</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Final Score Result Card -->
+<div class="bg-primary text-white rounded-xl p-8 flex flex-col justify-between items-center text-center kpi-score-badge">
+<p class="font-label-sm text-label-sm uppercase tracking-[0.2em] opacity-80">Final Performance Score</p>
+<div class="my-4">
+<span class="text-[64px] font-extrabold leading-none">94.5</span>
+<span class="text-2xl opacity-60">/100</span>
+</div>
+<div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-white h-full" style="width: 94.5%"></div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<p class="font-headline-md text-headline-md">EXCELLENT</p>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown Section -->
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden card-shadow">
+<div class="p-6 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                        KPI Score Breakdown
+                    </h4>
+<span class="text-label-sm font-label-sm text-outline">Weightage Total: 100%</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface text-outline font-label-sm text-label-sm uppercase">
+<th class="px-6 py-4 border-b border-outline-variant">Performance Criterion</th>
+<th class="px-6 py-4 border-b border-outline-variant text-center">Weight (%)</th>
+<th class="px-6 py-4 border-b border-outline-variant text-center">Raw Score</th>
+<th class="px-6 py-4 border-b border-outline-variant text-right">Weighted Result</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Sales Revenue -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-blue-50 text-blue-700 rounded-lg">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Total Sales Revenue</p>
+<p class="text-xs text-outline">Total volume of vehicle sales and add-ons</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">35%</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">92 / 100</td>
+<td class="px-6 py-5 text-right font-body-md text-body-md font-bold text-on-surface">32.2</td>
+</tr>
+<!-- Transactions -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-orange-50 text-orange-700 rounded-lg">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Transaction Count</p>
+<p class="text-xs text-outline">Number of closed deals and service contracts</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">25%</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">98 / 100</td>
+<td class="px-6 py-5 text-right font-body-md text-body-md font-bold text-on-surface">24.5</td>
+</tr>
+<!-- Attendance -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-green-50 text-green-700 rounded-lg">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Attendance &amp; Discipline</p>
+<p class="text-xs text-outline">Punctuality and presence during shifts</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">20%</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">100 / 100</td>
+<td class="px-6 py-5 text-right font-body-md text-body-md font-bold text-on-surface">20.0</td>
+</tr>
+<!-- CSAT -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-purple-50 text-purple-700 rounded-lg">
+<span class="material-symbols-outlined">sentiment_very_satisfied</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold text-on-surface">Customer Satisfaction (CSAT)</p>
+<p class="text-xs text-outline">Post-purchase feedback scores from clients</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">20%</td>
+<td class="px-6 py-5 text-center font-code-md text-code-md">89 / 100</td>
+<td class="px-6 py-5 text-right font-body-md text-body-md font-bold text-on-surface">17.8</td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container-low font-bold text-on-surface">
+<tr>
+<td class="px-6 py-5 text-right uppercase tracking-wider text-label-sm" colspan="3">Total Aggregate Score</td>
+<td class="px-6 py-5 text-right font-headline-md text-headline-md text-primary">94.5</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- Financial Calculation (Invoice Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-1 bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-center card-shadow">
+<p class="text-label-sm font-label-sm text-outline uppercase mb-2">Base Salary Reference</p>
+<p class="text-headline-lg font-headline-lg text-on-surface">Rp 6.000.000</p>
+<div class="mt-4 p-3 bg-secondary-container/30 rounded border border-secondary-fixed text-on-secondary-container">
+<p class="text-[10px] font-bold">POLICY NOTE:</p>
+<p class="text-xs italic leading-tight">Bonus capped at 30% of base salary for "Excellent" rating.</p>
+</div>
+</div>
+<div class="md:col-span-2 bg-white rounded-xl border-2 border-primary-fixed shadow-md overflow-hidden flex flex-col md:flex-row card-shadow">
+<div class="flex-1 p-6 flex flex-col justify-between">
+<div>
+<p class="text-label-sm font-label-sm text-outline uppercase">Bonus Calculation</p>
+<div class="flex items-baseline gap-2 mt-1">
+<h2 class="text-headline-xl font-headline-xl text-primary">30%</h2>
+<span class="text-on-surface-variant text-body-md">Multiplier Applied</span>
+</div>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div>
+<p class="text-xs text-outline uppercase font-bold">Payment Status</p>
+<p class="font-body-md text-body-md text-green-600 font-bold">READY FOR DISBURSEMENT</p>
+</div>
+</div>
+</div>
+<div class="bg-primary text-white p-8 flex flex-col justify-center items-end min-w-[280px]">
+<p class="text-label-sm font-label-sm uppercase tracking-widest opacity-80 mb-2">Final Bonus Amount</p>
+<p class="text-[32px] font-extrabold leading-none">Rp 1.800.000</p>
+<div class="mt-8 border-t border-white/20 pt-4 w-full text-right">
+<p class="text-[10px] opacity-70">Payout Ref: #BN-2023-09-001</p>
+<p class="text-[10px] opacity-70">Authorized on: 05 Oct 2023</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Signature -->
+<div class="flex flex-col md:flex-row justify-between items-end pt-12 gap-12 text-center md:text-left">
+<div class="max-w-sm">
+<p class="text-xs text-outline italic mb-6">This document is electronically generated and serves as an official performance record for bonus processing. Any discrepancies should be reported to HR within 48 hours.</p>
+<div class="flex items-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all no-print">
+<img alt="ISO Logo" class="h-8 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBztU38zpyj7J2gup_jwHTBrc-sz1HtdtlW_L4OtpuJAqnc9M9QUpMYmRM2VWLFGEkYbplu5Z_NVqw6MBrccZfHQzNWHqC-Ouu-naKCZ8BmIxojG-M8EjaJZqJgEmWVg66RfZPr4VP58tiQ3aJODEAczbDxzRWKFjI1jalIwWVsGN-rcRGnscHq1B0wxksTjr3ASNG4RAH7K0yyQ1iPFZh1ORo8LCozcA4AQjuz4MwN6_bQOhOWzhqIURg9uikUpKBhRDQRDbrExEM"/>
+<img alt="Safety Logo" class="h-8 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7pmfO8JyhLUXShNLdUqymrNPU5n-L9EDYAoVR1ahhKhCGlcpEF6zYjezSU6IQN9JIN0sSrjRqZFHwfTT2lxnc6TanMnxlKlRGDVUgeFzn2wQUWBD31eZT9RMeHtAb81lU1XUcLIgn95i-ysFq1pJ-YTrj74IgEXSrZBXD1Q9sXrZBbs0RAK59M79SFp_Tz3XxJ8rFRYFNYPj910EJ5PI_jE27yNaTL5xLoZ2u5oiPr_TIkc5x5duMnt1oQWQFlMuDeRFPkD5efUM"/>
+</div>
+</div>
+<div class="flex gap-16">
+<div class="w-40 border-t-2 border-on-surface pt-4 text-center">
+<p class="font-bold text-on-surface text-body-md">Bambang Wijaya</p>
+<p class="text-xs text-outline uppercase">HR Manager</p>
+</div>
+<div class="w-40 border-t-2 border-on-surface pt-4 text-center">
+<p class="font-bold text-on-surface text-body-md">Andi Pratama</p>
+<p class="text-xs text-outline uppercase">Employee</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Toast (Interaction Demo) -->
+<div class="fixed bottom-6 right-6 bg-inverse-surface text-inverse-on-surface px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 transform translate-y-24 transition-transform duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-green-400">check_circle</span>
+<p class="font-body-md text-body-md">Report verified and ready for export.</p>
+</div>
+<script>
+        // Simple Micro-interaction: Show toast after 1 second
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-24');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24');
+                }, 4000);
+            }, 1000);
+        });
+    </script>
+</body></html>

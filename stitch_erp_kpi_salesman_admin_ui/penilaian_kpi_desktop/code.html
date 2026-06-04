@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3037",
+                        "surface-container": "#eeedf7",
+                        "surface-tint": "#3755c3",
+                        "surface-container-low": "#f4f2fc",
+                        "inverse-primary": "#b8c4ff",
+                        "on-secondary-fixed-variant": "#454747",
+                        "surface-dim": "#dad9e3",
+                        "secondary": "#5d5f5f",
+                        "surface-container-high": "#e8e7f1",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dde1ff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "tertiary-container": "#872d00",
+                        "inverse-on-surface": "#f1f0fa",
+                        "on-surface": "#1a1b22",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001453",
+                        "surface-container-highest": "#e3e1eb",
+                        "background": "#fbf8ff",
+                        "outline-variant": "#c4c5d5",
+                        "tertiary-fixed": "#ffdbce",
+                        "on-background": "#1a1b22",
+                        "on-surface-variant": "#444653",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fbf8ff",
+                        "on-tertiary-fixed-variant": "#802a00",
+                        "tertiary": "#611e00",
+                        "surface-variant": "#e3e1eb",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#a8b8ff",
+                        "on-tertiary-container": "#ffa583",
+                        "secondary-container": "#dfe0e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary": "#00288e",
+                        "on-secondary-container": "#616363",
+                        "primary-container": "#1e40af",
+                        "outline": "#757684",
+                        "on-primary-fixed-variant": "#173bab",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-bright": "#fbf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack_sm": "8px",
+                        "stack_lg": "24px",
+                        "gutter": "24px",
+                        "header_height": "64px",
+                        "sidebar_expanded": "260px",
+                        "stack_md": "16px",
+                        "sidebar_collapsed": "72px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "code-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "code-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f3f4f6; /* Style Guidance Base Neutral */
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- SideNavBar (Predicted & Required) -->
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto hidden md:flex w-sidebar_expanded flex-col border-r border-outline-variant bg-surface dark:bg-inverse-surface z-40 transition-all duration-200">
+<div class="p-6 flex flex-col gap-1">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AutoERP</h1>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Management Suite</p>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-body-md">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-body-md">Positions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md">KPI Periods</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary-fixed border-l-4 border-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-body-md font-bold">KPI Assessment</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md">Bonus Recap</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface font-bold">Admin User</span>
+<span class="font-label-sm text-on-surface-variant">System Administrator</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Predicted & Required) -->
+<header class="fixed top-0 right-0 left-0 md:left-sidebar_expanded z-30 flex justify-between items-center px-gutter h-header_height bg-surface shadow-sm border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">KPI Management</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-body-md w-64 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search data..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-all">settings</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-header_height md:pl-sidebar_expanded min-h-screen">
+<div class="p-gutter max-w-7xl mx-auto">
+<!-- Page Title Section -->
+<div class="mb-stack_lg">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Input Penilaian KPI</h3>
+<p class="text-on-surface-variant font-body-md">Evaluate monthly salesman performance metrics to calculate bonuses.</p>
+</div>
+<!-- Dashboard Layout (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack_lg">
+<!-- Main Form Section -->
+<div class="lg:col-span-8 flex flex-col gap-stack_lg">
+<section class="bg-white p-8 rounded-xl border border-outline-variant shadow-sm">
+<form class="space-y-8" id="kpiForm">
+<!-- Selectors Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack_md">
+<div class="space-y-2">
+<label class="font-label-sm text-on-surface-variant block">Salesman</label>
+<select class="w-full p-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-0">
+<option disabled="" selected="" value="">Select Salesman</option>
+<option>Ahmad Subarjo</option>
+<option>Siti Aminah</option>
+<option>Budi Cahyadi</option>
+<option>Dewi Lestari</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-on-surface-variant block">KPI Period</label>
+<select class="w-full p-3 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-0">
+<option disabled="" selected="" value="">Select Period</option>
+<option>October 2023</option>
+<option>November 2023</option>
+<option>December 2023</option>
+</select>
+</div>
+</div>
+<hr class="border-outline-variant"/>
+<!-- Metric Inputs -->
+<div class="grid grid-cols-1 gap-6">
+<!-- Metric 1 -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold">Car Sales</p>
+<p class="text-on-surface-variant font-label-sm">Weight: 35%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<input class="w-32 p-2 border border-outline-variant rounded-lg text-right font-body-md" id="sales_input" placeholder="0" type="number"/>
+<span class="text-on-surface-variant font-body-md">Units</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold">Average Transaction</p>
+<p class="text-on-surface-variant font-label-sm">Weight: 25%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<input class="w-48 p-2 border border-outline-variant rounded-lg text-right font-body-md" id="trans_input" placeholder="0" type="number"/>
+<span class="text-on-surface-variant font-body-md">Rp</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold">Attendance</p>
+<p class="text-on-surface-variant font-label-sm">Weight: 20%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<input class="w-32 p-2 border border-outline-variant rounded-lg text-right font-body-md" id="attend_input" max="100" placeholder="0" type="number"/>
+<span class="text-on-surface-variant font-body-md">%</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-dim flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">sentiment_satisfied</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-bold">Customer Satisfaction</p>
+<p class="text-on-surface-variant font-label-sm">Weight: 20%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<select class="w-48 p-2 border border-outline-variant rounded-lg font-body-md" id="csat_input">
+<option value="1">1 - Very Dissatisfied</option>
+<option value="2">2 - Dissatisfied</option>
+<option value="3">3 - Neutral</option>
+<option value="4">4 - Satisfied</option>
+<option selected="" value="5">5 - Excellent</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Buttons -->
+<div class="flex flex-wrap items-center gap-4 pt-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-body-md font-bold hover:opacity-90 active:opacity-80 transition-all flex items-center gap-2" onclick="calculateKPI()" type="button">
+<span class="material-symbols-outlined">calculate</span>
+                                    Calculate Score &amp; Bonus
+                                </button>
+<button class="bg-white border border-primary text-primary px-8 py-3 rounded-lg font-body-md font-bold hover:bg-surface-container-low transition-all" type="submit">
+                                    Save KPI
+                                </button>
+<button class="text-on-surface-variant px-6 py-3 rounded-lg font-body-md hover:bg-surface-container-high transition-all" type="reset">
+                                    Reset
+                                </button>
+</div>
+</form>
+</section>
+<!-- Contextual Information Card -->
+<div class="bg-primary-container text-on-primary-container p-6 rounded-xl flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container">info</span>
+<div class="space-y-1">
+<p class="font-body-lg font-bold">Policy Reminder</p>
+<p class="text-body-md opacity-90">Bonuses are calculated based on a weighted average of performance scores. The maximum allowable bonus for the sales department is capped at Rp 2,000,000 per period.</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Live Results Panel -->
+<div class="lg:col-span-4 space-y-stack_lg">
+<div class="sticky top-24">
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="bg-surface-container-high p-4 border-b border-outline-variant">
+<h4 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span>
+                                    Live Result Card
+                                </h4>
+</div>
+<div class="p-6 space-y-6">
+<!-- Overall Score -->
+<div class="text-center py-4">
+<p class="text-on-surface-variant font-label-sm uppercase tracking-widest">Calculated KPI Score</p>
+<div class="text-6xl font-bold text-primary py-2" id="totalScore">0.0</div>
+<div class="text-on-surface-variant font-body-md italic" id="performanceLabel">— Waiting for calculation —</div>
+</div>
+<!-- Progress Bar Visualization -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="font-label-sm text-on-surface-variant">Bonus Threshold (Rp 2M Max)</span>
+<span class="font-body-md font-bold" id="bonusPercentage">0%</span>
+</div>
+<div class="w-full bg-surface-container-high h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-700 ease-out" id="bonusProgress" style="width: 0%"></div>
+</div>
+</div>
+<!-- Final Bonus Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border-2 border-dashed border-primary flex flex-col items-center gap-2">
+<p class="font-label-sm text-on-surface-variant">Final Bonus Payout</p>
+<div class="flex items-baseline gap-2">
+<span class="text-body-md font-bold text-on-surface-variant">Rp</span>
+<span class="text-3xl font-bold text-on-surface" id="finalBonus">0</span>
+</div>
+</div>
+<!-- Detailed Breakdown -->
+<div class="space-y-3">
+<p class="font-label-sm text-on-surface-variant border-b border-outline-variant pb-2">Weight Contribution</p>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Sales (35%)</span>
+<span class="font-bold" id="c_sales">0.0</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Trans (25%)</span>
+<span class="font-bold" id="c_trans">0.0</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Attend (20%)</span>
+<span class="font-bold" id="c_attend">0.0</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">CSAT (20%)</span>
+<span class="font-bold" id="c_csat">0.0</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Widget: Recent Evaluations -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 mt-6 shadow-sm">
+<h5 class="font-headline-md text-headline-md text-on-surface mb-4">Recent Evaluations</h5>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="User" class="rounded-full w-8 h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKRrYO5uVZxTRDreWvuLYOIwcBD0vWTH0otpYPHygFnZ-QkLeN4Vw6eZXlkL1564NU2L7wVJaawfUKvCMJ2CIRdz-ekaTdCW9-s9_zUCBe9-j88mX2q3iIHkMBZNCovDMo1K4wNQNkUbUIUIsISev7E-SKtMmEq_AMyamEg7uzYqw3hbOaXsJEy9fTPXL_HJpaCL8m0cfWeYNvWQUVdJYlkSMctnlqTTT38jc9y-MMvXq0bgzjczjJPK4SdaDG-z8XyVEn56OJQh8"/>
+<div>
+<p class="font-body-md font-bold">Budi Cahyadi</p>
+<p class="text-label-sm text-on-surface-variant">Score: 88.5</p>
+</div>
+</div>
+<span class="font-label-sm text-on-primary bg-primary px-2 py-1 rounded">Rp 1.8M</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="User" class="rounded-full w-8 h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIWtvKZVDQ1rvD-3oQtOdci0bh7rRKZLWnocsK5YkmU4nhdpO_OnrlzqiDhua1n4enfBIOuhGN5UVZxCARP3Xxz6Yf8ijCeijPt5CCwORIEVFIl20uJ9rgwam3-Dx978YSkBrsy0wja9Qg9hlyTaXd8MOn56gFZV9YVLLqMyP9G8qaOBk4t6dF_eY-D2zaJ6C9qE1-7yqtkgQaLr5eC1IWaJUNMSiFibuQWLMLXWjdkj28psX535Fa4CFGE4ewpwnQpIse5TtgBL4"/>
+<div>
+<p class="font-body-md font-bold">Siti Aminah</p>
+<p class="text-label-sm text-on-surface-variant">Score: 92.0</p>
+</div>
+</div>
+<span class="font-label-sm text-on-primary bg-primary px-2 py-1 rounded">Rp 2.0M</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function calculateKPI() {
+            // Get values
+            const sales = parseFloat(document.getElementById('sales_input').value) || 0;
+            const trans = parseFloat(document.getElementById('trans_input').value) || 0;
+            const attend = parseFloat(document.getElementById('attend_input').value) || 0;
+            const csat = parseFloat(document.getElementById('csat_input').value) || 0;
+
+            // Simplified Mock Logic:
+            // Normalize to 100-base scores
+            const salesScore = Math.min(100, (sales / 10) * 100); // 10 units = 100%
+            const transScore = Math.min(100, (trans / 15000000) * 100); // 15M = 100%
+            const attendScore = Math.min(100, attend); 
+            const csatScore = (csat / 5) * 100;
+
+            // Apply weights
+            const wSales = salesScore * 0.35;
+            const wTrans = transScore * 0.25;
+            const wAttend = attendScore * 0.20;
+            const wCsat = csatScore * 0.20;
+
+            const total = wSales + wTrans + wAttend + wCsat;
+            
+            // Calculate Bonus (Max 2M)
+            let bonus = (total / 100) * 2000000;
+            bonus = Math.max(0, Math.min(2000000, bonus));
+
+            // Update UI
+            document.getElementById('totalScore').innerText = total.toFixed(1);
+            document.getElementById('c_sales').innerText = wSales.toFixed(1);
+            document.getElementById('c_trans').innerText = wTrans.toFixed(1);
+            document.getElementById('c_attend').innerText = wAttend.toFixed(1);
+            document.getElementById('c_csat').innerText = wCsat.toFixed(1);
+            
+            const bonusFormatted = new Intl.NumberFormat('id-ID').format(Math.floor(bonus));
+            document.getElementById('finalBonus').innerText = bonusFormatted;
+            
+            const pct = (bonus / 2000000) * 100;
+            document.getElementById('bonusProgress').style.width = pct + '%';
+            document.getElementById('bonusPercentage').innerText = Math.round(pct) + '%';
+
+            const label = document.getElementById('performanceLabel');
+            if (total >= 90) {
+                label.innerText = 'Exceptional Performance';
+                label.className = 'text-primary font-bold italic py-2';
+            } else if (total >= 70) {
+                label.innerText = 'Target Achieved';
+                label.className = 'text-on-surface font-bold italic py-2';
+            } else {
+                label.innerText = 'Needs Improvement';
+                label.className = 'text-error font-bold italic py-2';
+            }
+        }
+
+        // Form Reset handler
+        document.getElementById('kpiForm').addEventListener('reset', () => {
+            document.getElementById('totalScore').innerText = '0.0';
+            document.getElementById('finalBonus').innerText = '0';
+            document.getElementById('bonusProgress').style.width = '0%';
+            document.getElementById('bonusPercentage').innerText = '0%';
+            document.getElementById('performanceLabel').innerText = '— Waiting for calculation —';
+            document.getElementById('performanceLabel').className = 'text-on-surface-variant font-body-md italic';
+        });
+    </script>
+</body></html>

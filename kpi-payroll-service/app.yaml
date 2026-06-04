@@ -1,0 +1,25 @@
+runtime: nodejs20
+service: kpi-payroll-service
+
+instance_class: F2
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 5
+
+env_variables:
+  NODE_ENV: production
+  PORT: "8080"
+  # DB and GCS variables should be injected via Secret Manager or CI/CD pipeline
+  # DB_HOST: <from-secret-manager>
+  # DB_PORT: "3306"
+  # DB_USER: <from-secret-manager>
+  # DB_PASSWORD: <from-secret-manager>
+  # DB_NAME: erp_kpi_payroll_db
+  # GCS_BUCKET_NAME: <your-bucket-name>
+  # AUTH_SERVICE_URL: https://auth-employee-service-<hash>-uc.a.run.app
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always

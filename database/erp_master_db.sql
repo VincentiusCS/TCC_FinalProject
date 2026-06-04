@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `phone`         VARCHAR(20)  NULL DEFAULT NULL,
   `position_id`   INT          NULL DEFAULT NULL,
   `photo_url`     VARCHAR(512) NULL DEFAULT NULL,
+  `is_active`     TINYINT(1)   NOT NULL DEFAULT 1 COMMENT 'Status aktif karyawan (1=active, 0=inactive)',
   `created_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

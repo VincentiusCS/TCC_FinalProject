@@ -16,7 +16,7 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ]
 
-const BLANK_FORM = { period_name: '', month: '', year: new Date().getFullYear() }
+const BLANK_FORM = { period_name: '', month: '', year: new Date().getFullYear(), is_active: false }
 
 export default function KpiPeriodsPage() {
   const [periods, setPeriods] = useState([])
@@ -79,7 +79,7 @@ export default function KpiPeriodsPage() {
 
   const openEdit = (period) => {
     setEditTarget(period)
-    setEditForm({ period_name: period.period_name, month: period.month, year: period.year })
+    setEditForm({ period_name: period.period_name, month: period.month, year: period.year, is_active: !!period.is_active })
     setEditErrors({})
   }
 
@@ -130,6 +130,19 @@ export default function KpiPeriodsPage() {
           className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md bg-surface-container-lowest"
         />
         <FieldError msg={errors.period_name} />
+      </div>
+      <div className="flex items-center gap-3 mt-2">
+        <label className="font-label-sm text-label-sm text-on-surface-variant">Status</label>
+        <button
+          type="button"
+          onClick={() => onChange({ ...form, is_active: !form.is_active })}
+          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.is_active ? 'bg-primary' : 'bg-outline-variant'}`}
+        >
+          <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${form.is_active ? 'translate-x-6' : 'translate-x-1'}`} />
+        </button>
+        <span className={`text-label-sm font-bold ${form.is_active ? 'text-green-700' : 'text-outline'}`}>
+          {form.is_active ? 'Active' : 'Inactive'}
+        </span>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>

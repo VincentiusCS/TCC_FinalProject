@@ -206,7 +206,7 @@ export default function BonusRecapPage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-surface-container-low">
-                  {['Nama Salesman', 'Periode', 'Penjualan', 'Avg TRX', 'Presensi', 'Final Score', 'Bonus %', 'Nominal Bonus', 'Action'].map((h) => (
+                  {['Nama Salesman', 'Periode', 'Sales Score', 'Trx Score', 'Attendance', 'Satisfaction', 'Final Score', 'Bonus %', 'Nominal Bonus', 'Action'].map((h) => (
                     <th key={h} className={`px-6 py-4 text-label-sm text-outline uppercase font-bold tracking-wider ${h === 'Final Score' ? 'text-center' : ''} ${h === 'Action' ? 'text-right' : ''}`}>
                       {h}
                     </th>
@@ -216,13 +216,13 @@ export default function BonusRecapPage() {
               <tbody className="divide-y divide-outline-variant">
                 {loading ? (
                   <tr>
-                    <td colSpan={9} className="px-6 py-12 text-center">
+                    <td colSpan={10} className="px-6 py-12 text-center">
                       <div className="flex justify-center"><Spinner /></div>
                     </td>
                   </tr>
                 ) : paginated.length === 0 ? (
                   <tr>
-                    <td colSpan={9} className="px-6 py-12 text-center text-on-surface-variant font-body-md">
+                    <td colSpan={10} className="px-6 py-12 text-center text-on-surface-variant font-body-md">
                       No bonus data available for this period.
                     </td>
                   </tr>
@@ -245,13 +245,14 @@ export default function BonusRecapPage() {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-body-md">{r.period_name || '-'}</td>
-                        <td className="px-6 py-4 text-body-md font-semibold">{r.sales_unit || 0} units</td>
-                        <td className="px-6 py-4 text-body-md">Rp {fmt(r.avg_transaction || 0)}</td>
+                        <td className="px-6 py-4 text-body-md font-semibold">{Number(r.sales_score || 0).toFixed(1)}</td>
+                        <td className="px-6 py-4 text-body-md">{Number(r.transaction_score || 0).toFixed(1)}</td>
                         <td className="px-6 py-4">
                           <span className={`text-xs font-bold px-2 py-0.5 rounded ${attendPct >= 90 ? 'text-green-600 bg-green-50' : 'text-error bg-error-container'}`}>
-                            {attendPct}%
+                            {Number(attendPct).toFixed(1)}
                           </span>
                         </td>
+                        <td className="px-6 py-4 text-body-md">{Number(r.satisfaction_score || 0).toFixed(1)}</td>
                         <td className="px-6 py-4 text-center">
                           <span className="font-headline-md text-headline-md text-primary">{score.toFixed(2)}</span>
                         </td>

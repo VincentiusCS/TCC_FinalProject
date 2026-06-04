@@ -235,7 +235,7 @@ router.post('/', assessmentValidations, async (req, res, next) => {
     const bonusRows = await query(
       `SELECT id, assessment_id, employee_id, period_id,
               sales_score, transaction_score, attendance_score, satisfaction_score,
-              final_score, bonus_percentage, bonus_amount, created_at, updated_at
+              final_score, bonus_percentage, bonus_amount, calculated_at
        FROM bonus_results WHERE id = ?`,
       [bonusResultId]
     );
@@ -397,7 +397,7 @@ router.put('/:id', assessmentValidations, async (req, res, next) => {
     const bonusRows = await query(
       `SELECT id, assessment_id, employee_id, period_id,
               sales_score, transaction_score, attendance_score, satisfaction_score,
-              final_score, bonus_percentage, bonus_amount, created_at, updated_at
+              final_score, bonus_percentage, bonus_amount, calculated_at
        FROM bonus_results WHERE assessment_id = ?`,
       [id]
     );

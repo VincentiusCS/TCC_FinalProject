@@ -58,7 +58,7 @@ export default function EmployeeFormPage() {
           email: emp.email || '',
           phone: emp.phone || '',
           position_id: emp.position_id || emp.position?.id || '',
-          status: emp.status || 'active',
+          status: emp.is_active !== undefined ? (emp.is_active ? 'active' : 'inactive') : (emp.status || 'active'),
           photo_url: emp.photo_url || '',
         })
       } catch (err) {
@@ -94,10 +94,11 @@ export default function EmployeeFormPage() {
     }
     setLoading(true)
     try {
+      const payload = { ...form, is_active: form.status === 'active' ? 1 : 0 }
       if (isEdit) {
-        await updateEmployee(id, form)
+        await updateEmployee(id, payload)
       } else {
-        await createEmployee(form)
+        await createEmployee(payload)
       }
       navigate('/employees')
     } catch (err) {

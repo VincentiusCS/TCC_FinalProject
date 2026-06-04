@@ -103,14 +103,6 @@ export default function Layout({ children }) {
         <div className="flex items-center gap-4">
           <h1 className="font-headline-md text-headline-md font-bold text-primary">KPI Management</h1>
         </div>
-        <div className="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full w-80 border border-outline-variant">
-          <span className="material-symbols-outlined text-on-surface-variant mr-2">search</span>
-          <input
-            className="bg-transparent border-none focus:ring-0 text-body-md w-full outline-none"
-            placeholder="Search data, employees, reports..."
-            type="text"
-          />
-        </div>
         <div className="flex items-center gap-2">
           <button className="p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 text-on-surface-variant">
             <span className="material-symbols-outlined">notifications</span>

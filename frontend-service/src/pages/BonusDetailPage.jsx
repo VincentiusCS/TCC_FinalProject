@@ -67,12 +67,11 @@ export default function BonusDetailPage() {
   const finalScore = Number(detail.final_score || 0)
   const bonusAmount = Number(detail.bonus_amount || 0)
 
-  // KPI Breakdown
-  const salesScore = Number(detail.sales_unit || 0)
-  const salesRaw = Math.min(100, (salesScore / 10) * 100)
-  const transRaw = Math.min(100, (Number(detail.avg_transaction || 0) / 15000000) * 100)
-  const attendRaw = Math.min(100, Number(detail.attendance_score || 0))
-  const csatRaw = (Number(detail.csat_score || 0) / 5) * 100
+  // KPI Breakdown — gunakan scores yang sudah dihitung dari backend
+  const salesScore   = Number(detail.sales_score || 0)
+  const transScore   = Number(detail.transaction_score || 0)
+  const attendScore  = Number(detail.attendance_score || 0)
+  const csatScore    = Number(detail.satisfaction_score || 0)
 
   const kpiRows = [
     {
@@ -81,8 +80,8 @@ export default function BonusDetailPage() {
       icon: 'trending_up',
       iconBg: 'bg-blue-50 text-blue-700',
       weight: 35,
-      raw: salesRaw.toFixed(0),
-      weighted: (salesRaw * 0.35).toFixed(1),
+      raw: salesScore.toFixed(1),
+      weighted: (salesScore * 0.35).toFixed(1),
     },
     {
       criterion: 'Avg Transaction',
@@ -90,8 +89,8 @@ export default function BonusDetailPage() {
       icon: 'receipt_long',
       iconBg: 'bg-orange-50 text-orange-700',
       weight: 25,
-      raw: transRaw.toFixed(0),
-      weighted: (transRaw * 0.25).toFixed(1),
+      raw: transScore.toFixed(1),
+      weighted: (transScore * 0.25).toFixed(1),
     },
     {
       criterion: 'Attendance & Discipline',
@@ -99,8 +98,8 @@ export default function BonusDetailPage() {
       icon: 'event_available',
       iconBg: 'bg-green-50 text-green-700',
       weight: 20,
-      raw: attendRaw.toFixed(0),
-      weighted: (attendRaw * 0.20).toFixed(1),
+      raw: attendScore.toFixed(1),
+      weighted: (attendScore * 0.20).toFixed(1),
     },
     {
       criterion: 'Customer Satisfaction (CSAT)',
@@ -108,8 +107,8 @@ export default function BonusDetailPage() {
       icon: 'sentiment_very_satisfied',
       iconBg: 'bg-purple-50 text-purple-700',
       weight: 20,
-      raw: csatRaw.toFixed(0),
-      weighted: (csatRaw * 0.20).toFixed(1),
+      raw: csatScore.toFixed(1),
+      weighted: (csatScore * 0.20).toFixed(1),
     },
   ]
 

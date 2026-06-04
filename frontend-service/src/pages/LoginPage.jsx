@@ -20,7 +20,7 @@ export default function LoginPage() {
     setLoading(true)
     try {
       const res = await login(email, password)
-      const { token, user } = res.data
+      const { token, user } = res.data.data
       localStorage.setItem('token', token)
       if (rememberMe) {
         localStorage.setItem('rememberMe', 'true')

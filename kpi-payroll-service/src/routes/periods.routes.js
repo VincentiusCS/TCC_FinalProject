@@ -43,6 +43,11 @@ const periodValidations = [
   body('year')
     .isInt({ min: 1 })
     .withMessage('Tahun harus berupa bilangan bulat positif'),
+
+  body('is_active')
+    .optional()
+    .isBoolean()
+    .withMessage('is_active harus berupa boolean'),
 ];
 
 // ── Helper ────────────────────────────────────────────────────────────────────
@@ -75,7 +80,7 @@ function handleValidationErrors(req, res) {
 router.get('/', async (req, res, next) => {
   try {
     const periods = await query(
-      'SELECT id, period_name, month, year, created_at, updated_at FROM kpi_periods ORDER BY year DESC, month DESC'
+      'SELECT id, period_name, month, year, is_active, created_at, updated_at FROM kpi_periods ORDER BY year DESC, month DESC'
     );
     return sendSuccess(res, 'Daftar periode KPI berhasil diambil', periods);
   } catch (err) {
@@ -93,17 +98,17 @@ router.post('/', periodValidations, async (req, res, next) => {
   try {
     if (handleValidationErrors(req, res)) return;
 
-    const { period_name, month, year } = req.body;
+    const { period_name, month, year, is_active } = req.body;
 
     const result = await query(
-      'INSERT INTO kpi_periods (period_name, month, year) VALUES (?, ?, ?)',
-      [period_name.trim(), parseInt(month, 10), parseInt(year, 10)]
+      'INSERT INTO kpi_periods (period_name, month, year, is_active) VALUES (?, ?, ?, ?)',
+      [period_name.trim(), parseInt(month, 10), parseInt(year, 10), is_active ? 1 : 0]
     );
 
     const insertId = result.insertId;
 
     const rows = await query(
-      'SELECT id, period_name, month, year, created_at, updated_at FROM kpi_periods WHERE id = ?',
+      'SELECT id, period_name, month, year, is_active, created_at, updated_at FROM kpi_periods WHERE id = ?',
       [insertId]
     );
 
@@ -124,7 +129,7 @@ router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
 
     const rows = await query(
-      'SELECT id, period_name, month, year, created_at, updated_at FROM kpi_periods WHERE id = ?',
+      'SELECT id, period_name, month, year, is_active, created_at, updated_at FROM kpi_periods WHERE id = ?',
       [id]
     );
 
@@ -156,20 +161,21 @@ router.put('/:id', periodValidations, async (req, res, next) => {
       return sendError(res, 'Periode KPI tidak ditemukan', [], 404);
     }
 
-    const { period_name, month, year } = req.body;
+    const { period_name, month, year, is_active } = req.body;
 
     await query(
       `UPDATE kpi_periods
        SET period_name = ?,
            month       = ?,
            year        = ?,
+           is_active   = ?,
            updated_at  = NOW()
        WHERE id = ?`,
-      [period_name.trim(), parseInt(month, 10), parseInt(year, 10), id]
+      [period_name.trim(), parseInt(month, 10), parseInt(year, 10), is_active ? 1 : 0, id]
     );
 
     const updated = await query(
-      'SELECT id, period_name, month, year, created_at, updated_at FROM kpi_periods WHERE id = ?',
+      'SELECT id, period_name, month, year, is_active, created_at, updated_at FROM kpi_periods WHERE id = ?',
       [id]
     );
 

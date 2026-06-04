@@ -21,6 +21,7 @@ export default function EmployeesPage() {
   const [error, setError] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [sortBy, setSortBy] = useState('newest')
+  const [searchQuery, setSearchQuery] = useState('')
   const [page, setPage] = useState(1)
   const [uploadModal, setUploadModal] = useState(null)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
@@ -31,7 +32,14 @@ export default function EmployeesPage() {
     setError('')
     try {
       const res = await getEmployees()
-      const data = Array.isArray(res.data) ? res.data : res.data?.data || []
+      const raw = Array.isArray(res.data) ? res.data : res.data?.data || []
+      // Normalize is_active (0/1) → status ('active'/'inactive')
+      const data = raw.map((e) => ({
+        ...e,
+        status: e.is_active !== undefined
+          ? (e.is_active ? 'active' : 'inactive')
+          : (e.status || 'active'),
+      }))
       setEmployees(data)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to load employees.')
@@ -44,8 +52,14 @@ export default function EmployeesPage() {
 
   const filtered = employees
     .filter((e) => {
-      if (statusFilter === 'all') return true
-      return e.status?.toLowerCase() === statusFilter
+      if (statusFilter !== 'all' && e.status?.toLowerCase() !== statusFilter) return false
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase()
+        return (e.name || '').toLowerCase().includes(q) ||
+               (e.employee_code || '').toLowerCase().includes(q) ||
+               (e.email || '').toLowerCase().includes(q)
+      }
+      return true
     })
     .sort((a, b) => {
       if (sortBy === 'name') return (a.name || '').localeCompare(b.name || '')
@@ -93,6 +107,22 @@ export default function EmployeesPage() {
 
         {/* Filter Bar */}
         <div className="bg-surface p-4 rounded-xl shadow-sm border border-outline-variant mb-6 flex flex-wrap items-center gap-4">
+          {/* Search Input */}
+          <div className="flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-lg border border-outline-variant flex-1 min-w-[200px]">
+            <span className="material-symbols-outlined text-outline text-[18px]">search</span>
+            <input
+              type="text"
+              placeholder="Search by name, code, or email..."
+              className="bg-transparent border-none outline-none text-body-md w-full"
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); setPage(1) }}
+            />
+            {searchQuery && (
+              <button onClick={() => { setSearchQuery(''); setPage(1) }}>
+                <span className="material-symbols-outlined text-outline text-[18px]">close</span>
+              </button>
+            )}
+          </div>
           <div className="flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-lg border border-outline-variant">
             <span className="text-label-sm text-on-surface-variant uppercase">Status:</span>
             <select

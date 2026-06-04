@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `kpi_periods` (
   `period_name` VARCHAR(100) NOT NULL COMMENT 'Nama periode, contoh: Januari 2025',
   `month`       TINYINT      NOT NULL COMMENT 'Bulan (1–12)',
   `year`        YEAR         NOT NULL COMMENT 'Tahun penilaian',
+  `is_active`   TINYINT(1)   NOT NULL DEFAULT 0 COMMENT 'Status aktif periode (1=active, 0=inactive)',
   `created_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

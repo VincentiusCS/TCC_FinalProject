@@ -222,33 +222,36 @@ router.post('/generate/:period_id', async (req, res, next) => {
     // Step 4 — Generate PDF buffer
     const pdfBuffer = await generatePdfBuffer(period.period_name, enrichedRows);
 
-    // Step 5 — Upload to GCS
-    if (!bucket) {
-      return sendError(
-        res,
-        'Layanan Cloud Storage tidak tersedia. Pastikan GCS_BUCKET_NAME sudah dikonfigurasi.',
-        [],
-        500
-      );
-    }
-
+    // Step 5 — Save PDF (GCS jika tersedia, fallback ke disk lokal)
     const timestamp = Date.now();
     const fileName = `reports/${parsedPeriodId}_${timestamp}.pdf`;
-    const file = bucket.file(fileName);
+    let fileUrl;
 
-    await new Promise((resolve, reject) => {
-      const stream = file.createWriteStream({
-        metadata: { contentType: 'application/pdf' },
-        resumable: false,
+    if (bucket) {
+      // Upload ke GCS
+      const file = bucket.file(fileName);
+      await new Promise((resolve, reject) => {
+        const stream = file.createWriteStream({
+          metadata: { contentType: 'application/pdf' },
+          resumable: false,
+        });
+        stream.on('error', reject);
+        stream.on('finish', resolve);
+        stream.end(pdfBuffer);
       });
-      stream.on('error', reject);
-      stream.on('finish', resolve);
-      stream.end(pdfBuffer);
-    });
-
-    // Build public URL
-    const bucketName = process.env.GCS_BUCKET_NAME;
-    const fileUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+      const bucketName = process.env.GCS_BUCKET_NAME;
+      fileUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+    } else {
+      // Fallback: simpan ke disk lokal
+      const fs = require('fs');
+      const path = require('path');
+      const localDir = path.join(__dirname, '..', '..', 'storage', 'reports');
+      if (!fs.existsSync(localDir)) fs.mkdirSync(localDir, { recursive: true });
+      const localFileName = `${parsedPeriodId}_${timestamp}.pdf`;
+      const localPath = path.join(localDir, localFileName);
+      fs.writeFileSync(localPath, pdfBuffer);
+      fileUrl = `/local/reports/${localFileName}`;
+    }
 
     // Step 6 — Save to payroll_reports
     const result = await query(
@@ -307,13 +310,25 @@ router.get('/:id/download', async (req, res, next) => {
 
     const report = rows[0];
 
+    // Cek apakah file lokal atau GCS
+    if (report.file_url && report.file_url.startsWith('/local/')) {
+      // Serve dari disk lokal
+      const fs = require('fs');
+      const path = require('path');
+      const localFileName = path.basename(report.file_url);
+      const localPath = path.join(__dirname, '..', '..', 'storage', 'reports', localFileName);
+
+      if (!fs.existsSync(localPath)) {
+        return sendError(res, 'File PDF tidak ditemukan di penyimpanan lokal', [], 404);
+      }
+
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${localFileName}"`);
+      return fs.createReadStream(localPath).pipe(res);
+    }
+
     if (!bucket) {
-      return sendError(
-        res,
-        'Layanan Cloud Storage tidak tersedia.',
-        [],
-        500
-      );
+      return sendError(res, 'Layanan Cloud Storage tidak tersedia.', [], 500);
     }
 
     // Derive the GCS object path from file_name (already stored as 'reports/{id}_{ts}.pdf')

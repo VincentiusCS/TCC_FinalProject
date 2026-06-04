@@ -105,7 +105,7 @@ export const getRecapDetail = (id) => kpiApi.get(`/api/kpi/recap/${id}`)
 export const getReports = () => kpiApi.get('/api/reports')
 
 export const generateReport = (periodId) =>
-  kpiApi.post('/api/reports/generate', { period_id: periodId })
+  kpiApi.post(`/api/reports/generate/${periodId}`)
 
 export const downloadReport = (id) =>
   kpiApi.get(`/api/reports/${id}/download`, { responseType: 'blob' })

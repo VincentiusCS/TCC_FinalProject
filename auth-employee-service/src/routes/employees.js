@@ -29,6 +29,7 @@ const EMPLOYEE_SELECT = `
   e.phone,
   e.position_id,
   e.photo_url,
+  e.is_active,
   e.created_at,
   e.updated_at,
   p.position_name
@@ -124,18 +125,19 @@ router.post('/', createValidations, async (req, res, next) => {
   try {
     if (handleValidationErrors(req, res)) return;
 
-    const { employee_code, name, email, phone, position_id, photo_url } = req.body;
+    const { employee_code, name, email, phone, position_id, photo_url, is_active } = req.body;
 
     const result = await query(
-      `INSERT INTO employees (employee_code, name, email, phone, position_id, photo_url)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO employees (employee_code, name, email, phone, position_id, photo_url, is_active)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         employee_code.trim(),
         name.trim(),
-        email,                         // already normalised by express-validator
+        email,
         phone ? phone.trim() : phone,
         position_id || null,
         photo_url || null,
+        is_active !== undefined ? (is_active ? 1 : 0) : 1,
       ]
     );
 
@@ -215,7 +217,7 @@ router.put('/:id', updateValidations, async (req, res, next) => {
       return sendError(res, 'Karyawan tidak ditemukan', [], 404);
     }
 
-    const { employee_code, name, email, phone, position_id, photo_url } = req.body;
+    const { employee_code, name, email, phone, position_id, photo_url, is_active } = req.body;
 
     await query(
       `UPDATE employees
@@ -225,6 +227,7 @@ router.put('/:id', updateValidations, async (req, res, next) => {
            phone         = ?,
            position_id   = ?,
            photo_url     = ?,
+           is_active     = ?,
            updated_at    = NOW()
        WHERE id = ?`,
       [
@@ -234,6 +237,7 @@ router.put('/:id', updateValidations, async (req, res, next) => {
         phone ? phone.trim() : phone,
         position_id || null,
         photo_url !== undefined ? photo_url : null,
+        is_active !== undefined ? (is_active ? 1 : 0) : 1,
         id,
       ]
     );

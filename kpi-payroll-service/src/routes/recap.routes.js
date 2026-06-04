@@ -47,9 +47,11 @@ router.get('/', async (req, res, next) => {
       SELECT br.id, br.assessment_id, br.employee_id, br.period_id,
              kp.period_name, br.sales_score, br.transaction_score,
              br.attendance_score, br.satisfaction_score, br.final_score,
-             br.bonus_percentage, br.bonus_amount, br.calculated_at
+             br.bonus_percentage, br.bonus_amount, br.calculated_at,
+             ka.sales_unit, ka.avg_transaction, ka.customer_satisfaction
       FROM bonus_results br
       LEFT JOIN kpi_periods kp ON kp.id = br.period_id
+      LEFT JOIN kpi_assessments ka ON ka.id = br.assessment_id
     `;
     const params = [];
 
@@ -85,9 +87,11 @@ router.get('/:id', async (req, res, next) => {
       `SELECT br.id, br.assessment_id, br.employee_id, br.period_id,
               kp.period_name, br.sales_score, br.transaction_score,
               br.attendance_score, br.satisfaction_score, br.final_score,
-              br.bonus_percentage, br.bonus_amount, br.calculated_at
+              br.bonus_percentage, br.bonus_amount, br.calculated_at,
+              ka.sales_unit, ka.avg_transaction, ka.customer_satisfaction
        FROM bonus_results br
        LEFT JOIN kpi_periods kp ON kp.id = br.period_id
+       LEFT JOIN kpi_assessments ka ON ka.id = br.assessment_id
        WHERE br.id = ?`,
       [id]
     );

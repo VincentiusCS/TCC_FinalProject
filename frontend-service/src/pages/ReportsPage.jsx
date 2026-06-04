@@ -57,6 +57,10 @@ export default function ReportsPage() {
   }, [fetchReports])
 
   const handleGenerate = async () => {
+    if (!genPeriod) {
+      setGenError('Pilih periode KPI terlebih dahulu.')
+      return
+    }
     setGenerating(true)
     setGenProgress(0)
     setGenError('')
@@ -70,7 +74,7 @@ export default function ReportsPage() {
     }, 300)
 
     try {
-      await generateReport(genPeriod || undefined)
+      await generateReport(genPeriod)
       clearInterval(interval)
       setGenProgress(100)
       setTimeout(() => {

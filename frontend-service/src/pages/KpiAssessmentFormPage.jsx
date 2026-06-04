@@ -60,14 +60,23 @@ export default function KpiAssessmentFormPage() {
 
   const calculateKPI = () => {
     const sales = parseFloat(form.sales_unit) || 0
-    const trans = parseFloat(form.avg_transaction) || 0
+    const transInput = parseFloat(form.avg_transaction) || 0
     const attend = parseFloat(form.attendance_score) || 0
     const csat = parseFloat(form.csat_score) || 0
 
-    const salesScore = Math.min(100, (sales / 10) * 100)
-    const transScore = Math.min(100, (trans / 15000000) * 100)
+    // Convert avg_transaction dari juta ke rupiah penuh (sama seperti handleSave)
+    const trans = transInput >= 200000000 ? transInput : transInput * 1_000_000
+
+    // Gunakan formula SAW yang sama dengan backend
+    const salesScore = Math.min(100, (sales / 20) * 100)
+
+    let transScore
+    if (trans < 200_000_000) transScore = 1
+    else if (trans > 1_000_000_000) transScore = 100
+    else transScore = ((trans - 200_000_000) / (1_000_000_000 - 200_000_000)) * 99 + 1
+
     const attendScore = Math.min(100, attend)
-    const csatScore = (csat / 5) * 100
+    const csatScore = ((csat - 1) / 4) * 100  // convert 1-5 ke 0-100
 
     const wSales = salesScore * 0.35
     const wTrans = transScore * 0.25
@@ -75,13 +84,22 @@ export default function KpiAssessmentFormPage() {
     const wCsat = csatScore * 0.20
 
     const total = wSales + wTrans + wAttend + wCsat
-    const bonus = Math.max(0, Math.min(MAX_BONUS, (total / 100) * MAX_BONUS))
-    const bonusPct = (bonus / MAX_BONUS) * 100
+
+    // Tier bonus sesuai backend
+    let bonusPct = 0
+    let bonus = 0
+    if (total >= 90)      { bonusPct = 100; bonus = 2_000_000 }
+    else if (total >= 80) { bonusPct = 90;  bonus = 1_800_000 }
+    else if (total >= 70) { bonusPct = 80;  bonus = 1_600_000 }
+    else if (total >= 60) { bonusPct = 70;  bonus = 1_400_000 }
+    else if (total >= 50) { bonusPct = 60;  bonus = 1_200_000 }
+    else if (total >= 40) { bonusPct = 50;  bonus = 1_000_000 }
 
     let label = 'Needs Improvement'
     let labelClass = 'text-error'
-    if (total >= 90) { label = 'Exceptional Performance'; labelClass = 'text-primary font-bold' }
-    else if (total >= 70) { label = 'Target Achieved'; labelClass = 'text-on-surface font-bold' }
+    if (total >= 90)      { label = 'Exceptional Performance'; labelClass = 'text-primary font-bold' }
+    else if (total >= 70) { label = 'Target Achieved';         labelClass = 'text-on-surface font-bold' }
+    else if (total >= 50) { label = 'On Track';                labelClass = 'text-primary' }
 
     setResult({ total, wSales, wTrans, wAttend, wCsat, bonus, bonusPct, label, labelClass })
   }
@@ -105,13 +123,23 @@ export default function KpiAssessmentFormPage() {
 
     setSaving(true)
     try {
+      const csatRaw = Number(form.csat_score) || 0
+      // Convert csat_score (1-5) to customer_satisfaction (0-100)
+      const customerSatisfaction = ((csatRaw - 1) / 4) * 100
+
+      // avg_transaction input dalam juta rupiah, convert ke rupiah penuh
+      const avgTransactionRaw = Number(form.avg_transaction) || 0
+      const avgTransaction = avgTransactionRaw >= 200000000
+        ? avgTransactionRaw  // sudah dalam rupiah penuh
+        : avgTransactionRaw * 1_000_000  // asumsi input dalam juta
+
       await createAssessment({
-        employee_id: form.employee_id,
-        period_id: form.period_id,
+        employee_id: Number(form.employee_id),
+        period_id: Number(form.period_id),
         sales_unit: Number(form.sales_unit) || 0,
-        avg_transaction: Number(form.avg_transaction) || 0,
+        avg_transaction: avgTransaction,
         attendance_score: Number(form.attendance_score) || 0,
-        csat_score: Number(form.csat_score) || 0,
+        customer_satisfaction: customerSatisfaction,
       })
       setSaveSuccess('KPI Assessment saved successfully!')
       setTimeout(() => navigate('/kpi/recap'), 1500)
@@ -220,20 +248,21 @@ export default function KpiAssessmentFormPage() {
                       </div>
                       <div>
                         <p className="font-body-lg text-body-lg font-bold">Average Transaction</p>
-                        <p className="text-on-surface-variant font-label-sm">Weight: 25%</p>
+                        <p className="text-on-surface-variant font-label-sm">Weight: 25% · Min: Rp 200.000.000</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <input
                         name="avg_transaction"
                         type="number"
-                        placeholder="0"
-                        min="0"
+                        placeholder="500"
+                        min="200"
+                        max="1000"
                         value={form.avg_transaction}
                         onChange={handleChange}
                         className="w-48 p-2 border border-outline-variant rounded-lg text-right font-body-md focus:border-primary focus:ring-0 outline-none"
                       />
-                      <span className="text-on-surface-variant font-body-md">Rp</span>
+                      <span className="text-on-surface-variant font-body-md">Juta Rp</span>
                     </div>
                   </div>
 

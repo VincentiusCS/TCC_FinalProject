@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
       .then((res) => {
         dispatch({
           type: 'LOGIN',
-          payload: { token, user: res.data.user || res.data },
+          payload: { token, user: res.data.data?.user || res.data.data || res.data },
         })
       })
       .catch(() => {

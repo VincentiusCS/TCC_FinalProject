@@ -10,14 +10,18 @@ automatic_scaling:
 env_variables:
   NODE_ENV: production
   PORT: "8080"
-  # DB and GCS variables should be injected via Secret Manager or CI/CD pipeline
-  # DB_HOST: <from-secret-manager>
-  # DB_PORT: "3306"
-  # DB_USER: <from-secret-manager>
-  # DB_PASSWORD: <from-secret-manager>
-  # DB_NAME: erp_master_db
-  # GCS_BUCKET_NAME: <your-bucket-name>
-  # JWT_SECRET: <from-secret-manager>
+  DB_HOST: "/cloudsql/PROJECT_ID:asia-southeast2:erp-mysql"
+  DB_PORT: "3306"
+  DB_USER: root
+  DB_PASSWORD: "GANTI_DENGAN_PASSWORD_DB"
+  DB_NAME: erp_master_db
+  JWT_SECRET: "GANTI_DENGAN_JWT_SECRET"
+  GCS_BUCKET_NAME: "GANTI_DENGAN_NAMA_BUCKET"
+  RATE_LIMIT_WINDOW_MS: "900000"
+  RATE_LIMIT_MAX: "100"
+
+beta_settings:
+  cloud_sql_instances: "PROJECT_ID:asia-southeast2:erp-mysql"
 
 handlers:
   - url: /.*

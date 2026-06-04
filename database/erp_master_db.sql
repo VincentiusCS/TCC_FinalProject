@@ -122,5 +122,5 @@ CREATE TABLE IF NOT EXISTS `employee_files` (
 -- yang sebenarnya sebelum digunakan di production
 -- -----------------------------------------------------------
 INSERT INTO `users` (`email`, `password_hash`, `name`)
-VALUES ('admin@erp.com', '$2b$10$PLACEHOLDER_REPLACE_WITH_REAL_BCRYPT_HASH', 'Admin')
-ON DUPLICATE KEY UPDATE `name` = VALUES(`name`);
+VALUES ('admin@erp.com', '$2a$10$HFJRmlv5lnnTu2we3QZcdOXW5bE7M9pCAkLozx/qU38ZfkxYgKq9y', 'Admin')
+ON DUPLICATE KEY UPDATE `password_hash` = VALUES(`password_hash`);

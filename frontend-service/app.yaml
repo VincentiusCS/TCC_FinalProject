@@ -1,23 +1,16 @@
 runtime: nodejs20
-service: frontend-service
-
-instance_class: F1
-
-automatic_scaling:
-  min_instances: 1
-  max_instances: 3
-
-env_variables:
-  NODE_ENV: production
-  # VITE_AUTH_SERVICE_URL: https://auth-employee-service-<hash>-uc.a.run.app
-  # VITE_KPI_SERVICE_URL: https://kpi-payroll-service-<hash>-uc.a.run.app
-
-build_env_variables:
-  NODE_ENV: production
+service: default
 
 handlers:
   - url: /assets
     static_dir: dist/assets
+    secure: always
+
+  - url: /(.*\.(js|css|ico|png|jpg|jpeg|svg|gif|webp|json|woff|woff2|ttf|eot))$
+    static_files: dist/\1
+    upload: dist/.*\.(js|css|ico|png|jpg|jpeg|svg|gif|webp|json|woff|woff2|ttf|eot)$
+    secure: always
+
   - url: /.*
     static_files: dist/index.html
     upload: dist/index.html
